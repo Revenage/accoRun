@@ -1,0 +1,46 @@
+<div ng-controller="AccountCtrl" class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <table class="table table-condensed table-hover">
+            <thead>
+            <tr>
+                <th class="text-center">Name</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Cash</th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    <div ng-class="{'has-error': nameError === true}">
+                        <input class="form-control" type="text" ng-model="newAcco.name"/>
+                    </div>
+                </th>
+                <th class="text-center">
+                    <input class="form-control" type="date" ng-model="newAcco.date"/>
+                </th>
+                <th>
+                    <div ng-class="{'has-error': cashError === true}">
+                        <input class="form-control" type="number" ng-model="newAcco.cash"/>
+                    </div>
+                </th>
+                <th>
+                    <button class="btn btn-success" ng-click="addAccountsRow()"><span
+                            class="glyphicon glyphicon-plus"></span></button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="account in accounts | orderBy: 'cash': true"
+                ng-class="{'success': account.type === 'income', 'danger': account.type === 'cost', 'warning': account.type === 'zero'}">
+                <td><a href="/accounts/{{account._id}}">{{account.name}}</a></td>
+                <td class="text-center" ng-bind="account.date | date:'h:mm MM.dd.yyyy'"></td>
+                <td class="text-right">{{account.cash | moneyMask: 2 : "," : " " }}</td>
+                <td class="text-center">
+                    <button class="btn btn-danger btn-sm" ng-click="remove(account)"><span
+                            class="glyphicon glyphicon-remove"></span></button>
+                </td>
+            </tr>
+            </tbody>
+            <button class="btn btn-danger" ng-click="removeAll()">Remove All <span
+                    class="glyphicon glyphicon-warning-sign"></span></button>
+        </table>
+    </div>
+</div>
