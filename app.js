@@ -12,7 +12,7 @@ if (Meteor.isClient) {
         $scope.accounts = $meteor.collection(Accounts);
         $scope.cashError = false;
         $scope.nameError = false;
-        $scope.newAcco.name = '';
+
         //$scope.sortType = $cookies.get("sortType");
         //$scope.sortReverse = $cookies.get("sortReverse");
 
@@ -23,26 +23,31 @@ if (Meteor.isClient) {
             //$cookies.put("sortReverse", $scope.sortReverse);
         };
 
-        $scope.addAccountsRow = function () {
+        $scope.addAccountsRow = function (name, cash) {
 
             $scope.cashError = false;
             $scope.nameError = false;
 
-            if ($scope.newAcco.name == null || $scope.newAcco.name == null) {
+            if (name == null && cash == null) {
+                $scope.cashError = true;
                 $scope.nameError = true;
                 return;
             }
-            if ($scope.newAcco.cash == null) {
+            if (name == null || name == '') {
+                $scope.nameError = true;
+                return;
+            }
+            if (cash == null) {
                 $scope.cashError = true;
                 return;
             }
-            if ($scope.newAcco.cash < 0) {
+            if (cash < 0) {
                 $scope.newAcco.type = 'cost';
             }
-            if ($scope.newAcco.cash > 0) {
+            if (cash > 0) {
                 $scope.newAcco.type = 'income';
             }
-            if ($scope.newAcco.cash == 0) {
+            if (cash == 0) {
                 $scope.newAcco.type = 'zero';
             }
             $scope.inputRow = false;
