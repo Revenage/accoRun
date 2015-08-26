@@ -1,13 +1,16 @@
 Accounts = new Mongo.Collection("accounts");
 
 if (Meteor.isClient) {
-    angular.module('accoRun', ['angular-meteor', 'ui.router']);
+    angular.module('accoRun', ['angular-meteor', 'ui.router', 'angularMoment']);
 
     angular.module('accoRun').controller('AccountCtrl', ['$scope', '$meteor', function ($scope, $meteor) {
 
         $scope.accounts = $meteor.collection(Accounts);
         $scope.cashError = false;
         $scope.nameError = false;
+
+        $scope.sortType = "name";
+        $scope.sortReverse = false;
 
         $scope.addAccountsRow = function () {
             $scope.cashError = false;
@@ -30,6 +33,7 @@ if (Meteor.isClient) {
             if ($scope.newAcco.cash == 0) {
                 $scope.newAcco.type = 'zero';
             }
+
             $scope.newAcco.date = new Date();
             $scope.newAcco.nowDate = new Date();
 

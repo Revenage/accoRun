@@ -3,9 +3,9 @@
         <table class="table table-condensed table-hover">
             <thead>
             <tr>
-                <th class="text-center">Name</th>
-                <th class="text-center">Date</th>
-                <th class="text-center">Cash</th>
+                <th class="text-center" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name</th>
+                <th class="text-center" ng-click="sortType = 'date'; sortReverse = !sortReverse">Date</th>
+                <th class="text-center" ng-click="sortType = 'cash'; sortReverse = !sortReverse">Cash</th>
             </tr>
             <tr>
                 <th class="text-center">
@@ -21,17 +21,17 @@
                         <input class="form-control" type="number" ng-model="newAcco.cash"/>
                     </div>
                 </th>
-                <th>
+                <th class="text-center">
                     <button class="btn btn-success" ng-click="addAccountsRow()"><span
                             class="glyphicon glyphicon-plus"></span></button>
                 </th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="account in accounts | orderBy: 'cash': true"
+            <tr ng-repeat="account in accounts | orderBy: sortType: sortReverse"
                 ng-class="{'success': account.type === 'income', 'danger': account.type === 'cost', 'warning': account.type === 'zero'}">
                 <td><a href="/accounts/{{account._id}}">{{account.name}}</a></td>
-                <td class="text-center" ng-bind="account.date | date:'h:mm MM.dd.yyyy'"></td>
+                <td class="text-center"><time am-time-ago="account.date"></time></td>
                 <td class="text-right">{{account.cash | moneyMask: 2 : "," : " " }}</td>
                 <td class="text-center">
                     <button class="btn btn-danger btn-sm" ng-click="remove(account)"><span
@@ -39,8 +39,8 @@
                 </td>
             </tr>
             </tbody>
-            <button class="btn btn-danger" ng-click="removeAll()">Remove All <span
-                    class="glyphicon glyphicon-warning-sign"></span></button>
+            <!--<button class="btn btn-danger" ng-click="removeAll()">Remove All <span
+                    class="glyphicon glyphicon-warning-sign"></span></button>-->
         </table>
     </div>
 </div>
