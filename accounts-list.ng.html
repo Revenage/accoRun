@@ -1,13 +1,14 @@
 <div ng-controller="AccountCtrl" class="row">
     <div class="col-md-6 col-md-offset-3">
-        <table class="table table-condensed table-hover">
+        <table class="table table-condensed table-hover table-bordered table-responsive">
             <thead>
             <tr>
-                <th class="text-center" ng-click="sortType = 'name'; sortReverse = !sortReverse">Name</th>
-                <th class="text-center" ng-click="sortType = 'date'; sortReverse = !sortReverse">Date</th>
-                <th class="text-center" ng-click="sortType = 'cash'; sortReverse = !sortReverse">Cash</th>
+                <th class="text-center tableHover" ng-click="toSortTable('name')">Name</th>
+                <th class="text-center tableHover" ng-click="toSortTable('date')">Date</th>
+                <th class="text-center tableHover" ng-click="toSortTable('cash')">Cash</th>
+                <th></th>
             </tr>
-            <tr>
+<!--            <tr>
                 <th class="text-center">
                     <div ng-class="{'has-error': nameError === true}">
                         <input class="form-control" type="text" ng-model="newAcco.name"/>
@@ -25,17 +26,44 @@
                     <button class="btn btn-success" ng-click="addAccountsRow()"><span
                             class="glyphicon glyphicon-plus"></span></button>
                 </th>
-            </tr>
+            </tr>-->
             </thead>
             <tbody>
             <tr ng-repeat="account in accounts | orderBy: sortType: sortReverse"
-                ng-class="{'success': account.type === 'income', 'danger': account.type === 'cost', 'warning': account.type === 'zero'}">
-                <td><a href="/accounts/{{account._id}}">{{account.name}}</a></td>
+                ng-class="{'success': account.type === 'income', 'danger': account.type === 'cost', 'warning': account.type === 'zero'}"
+                ng-click="trLinkTo('accounts', account._id)">
+                <td>{{account.name}}</td>
                 <td class="text-center"><time am-time-ago="account.date"></time></td>
                 <td class="text-right">{{account.cash | moneyMask: 2 : "," : " " }}</td>
                 <td class="text-center">
                     <button class="btn btn-danger btn-sm" ng-click="remove(account)"><span
                             class="glyphicon glyphicon-remove"></span></button>
+                </td>
+            </tr>
+            <tr ng-show="inputRow">
+            <td class="text-center">
+                <div ng-class="{'has-error': nameError === true}">
+                    <input class="form-control" type="text" ng-model="newAcco.name"/>
+                </div>
+            </td>
+            <td class="text-center">
+                <input class="form-control" type="date" ng-model="newAcco.date"/>
+            </td>
+            <td>
+                <div ng-class="{'has-error': cashError === true}">
+                    <input class="form-control" type="number" ng-model="newAcco.cash"/>
+                </div>
+            </td>
+                <td class="text-center">
+                    <button class="btn btn-success" ng-click="addAccountsRow()"><span
+                            class="glyphicon glyphicon-plus"></span></button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" ng-click="inputRow = !inputRow">
+                    <button class="btn btn-block btn-primary">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                    </button>
                 </td>
             </tr>
             </tbody>

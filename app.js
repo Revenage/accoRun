@@ -5,18 +5,30 @@ if (Meteor.isClient) {
 
     angular.module('accoRun').controller('AccountCtrl', ['$scope', '$meteor', function ($scope, $meteor) {
 
+        $scope.trLinkTo = function (somewhere, id) {
+            location.href = '/' + somewhere + '/' + id ;
+        };
+
         $scope.accounts = $meteor.collection(Accounts);
         $scope.cashError = false;
         $scope.nameError = false;
+        $scope.newAcco.name = '';
+        //$scope.sortType = $cookies.get("sortType");
+        //$scope.sortReverse = $cookies.get("sortReverse");
 
-        $scope.sortType = "name";
-        $scope.sortReverse = false;
+        $scope.toSortTable = function (type) {
+            $scope.sortType = type;
+            $scope.sortReverse = !$scope.sortReverse;
+            //$cookies.put("sortType", type);
+            //$cookies.put("sortReverse", $scope.sortReverse);
+        };
 
         $scope.addAccountsRow = function () {
+
             $scope.cashError = false;
             $scope.nameError = false;
 
-            if ($scope.newAcco.name == null || $scope.newAcco.name == '') {
+            if ($scope.newAcco.name == null || $scope.newAcco.name == null) {
                 $scope.nameError = true;
                 return;
             }
@@ -33,13 +45,12 @@ if (Meteor.isClient) {
             if ($scope.newAcco.cash == 0) {
                 $scope.newAcco.type = 'zero';
             }
-
+            $scope.inputRow = false;
             $scope.newAcco.date = new Date();
             $scope.newAcco.nowDate = new Date();
 
             $scope.accounts.push($scope.newAcco);
             $scope.newAcco = null;
-            console.log($scope.accounts);
         };
         $scope.remove = function (account) {
             $scope.accounts.remove(account);
