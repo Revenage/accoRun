@@ -11,3 +11,6 @@ urigo:angular
 angularui:angular-ui-router
 twbs:bootstrap
 jasonaibrahim:angular-moment
+d3js:d3
+angularui:angular-ui-bootstrap
+angular:angular-animate

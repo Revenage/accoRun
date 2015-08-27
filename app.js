@@ -1,7 +1,7 @@
 Accounts = new Mongo.Collection("accounts");
 
 if (Meteor.isClient) {
-    angular.module('accoRun', ['angular-meteor', 'ui.router', 'angularMoment']);
+    angular.module('accoRun', ['angular-meteor', 'ui.router', 'angularMoment', 'ngAnimate', 'ui.bootstrap']);
 
     angular.module('accoRun').controller('AccountCtrl', ['$scope', '$meteor', function ($scope, $meteor) {
 
