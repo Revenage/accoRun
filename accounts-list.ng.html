@@ -1,6 +1,6 @@
 <div ng-controller="AccountCtrl" class="row">
     <div class="col-md-12">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <table class="table table-condensed table-hover table-bordered table-responsive">
                 <thead>
                 <tr>
@@ -36,23 +36,23 @@
                 <tr ng-repeat="account in accounts | orderBy: sortType: sortReverse"
                     ng-class="{'success': account.type === 'income', 'danger': account.type === 'cost', 'warning': account.type === 'zero'}"
                     ng-click="trLinkTo('accounts', account._id)">
-                    <td>{{account.name}}</td>
-                    <td class="text-center">
+                    <td class="fix-collum">{{account.name}}</td>
+                    <td class="text-center fix-collum">
                         <time am-time-ago="account.date"></time>
                     </td>
-                    <td class="text-right">{{account.cash | moneyMask: 2 : "," : " " }}</td>
+                    <td class="text-right fix-collum">{{account.cash | moneyMask: 2 : "," : " " }}</td>
                     <td class="text-center" width="50">
                         <button class="btn btn-danger btn-sm" ng-click="remove(account)"><span
                                 class="glyphicon glyphicon-remove"></span></button>
                     </td>
                 </tr>
                 <tr ng-show="inputRow">
-                    <td class="text-center">
+                    <td class="text-center fix-collum">
                         <div ng-class="{'has-error': nameError === true}">
-                            <input class="form-control" type="number" ng-model="newAcco.name"/>
+                            <input class="form-control" type="text" ng-model="newAcco.name"/>
                         </div>
                     </td>
-                    <td class="text-center">
+                    <td class="text-center fix-collum">
                         <input class="form-control" type="date" ng-model="newAcco.date"/>
                     </td>
                     <td>
@@ -60,7 +60,7 @@
                             <input class="form-control" type="number" ng-model="newAcco.cash"/>
                         </div>
                     </td>
-                    <td class="text-center">
+                    <td class="text-center fix-collum">
                         <button class="btn btn-success" ng-click="addAccountsRow(newAcco.name, newAcco.cash)"><span
                                 class="glyphicon glyphicon-plus"></span></button>
                     </td>
@@ -77,7 +77,9 @@
                         class="glyphicon glyphicon-warning-sign"></span></button>-->
             </table>
         </div>
-        <div class="col-md-6" ng-controller="DonutGraphCtrl">
+        <div class="col-md-8" ng-controller="donutChartCtrl">
+            <div class="donutChart">
+            </div>
         </div>
     </div>
 </div>
