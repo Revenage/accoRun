@@ -6,7 +6,8 @@
                 <thead>
                 <tr>
                     <th class="text-center tableHover" ng-click="toSortTable('name')"><h4>Name</h4></th>
-                    <th class="text-center tableHover" ng-click="toSortTable('date')"><h4>Date</h4></th>
+                    <th class="text-center tableHover" ng-click="toSortTable('date')"><h4>Complite date</h4></th>
+                    <th class="text-center tableHover" ng-click="toSortTable('nowDate')"><h4>Write date</h4></th>
                     <th class="text-center tableHover" ng-click="toSortTable('cash')"><h4>Cash</h4></th>
                     <th class="text-center">
                         <button class="btn btn-default" ng-click="open()"><span
@@ -37,32 +38,36 @@
                 <tr ng-repeat="account in accounts | orderBy: sortType: sortReverse"
                     ng-class="{'success': account.type === 'income', 'danger': account.type === 'cost', 'warning': account.type === 'zero'}"
                     ng-click="trLinkTo('accounts', account._id)">
-                    <td class="fix-collum">{{account.name}}</td>
-                    <td class="text-center fix-collum">
-                        <time am-time-ago="account.date" tooltip="{{account.date | date:'dd-MM-yyyy HH:mm:ss'}}"></time>
+                    <td class="">{{account.name}}</td>
+                    <td class="text-center ">
+                        <time am-time-ago="account.date" tooltip="{{account.date | date:'dd-MM-yyyy'}}"></time>
                     </td>
-                    <td class="text-right fix-collum">{{account.cash | moneyMask: 2 : "," : " " }}</td>
-                    <td class="text-center" width="50">
+                    <td class="text-center ">
+                        <time am-time-ago="account.nowDate" tooltip="{{account.nowDate | date:'dd-MM-yyyy HH:mm:ss'}}"></time>
+                    </td>
+                    <td class="text-right ">{{account.cash | moneyMask: 2 : "," : " " }}</td>
+                    <td class="text-center ">
                         <button class="btn btn-danger btn-sm" ng-click="remove(account)"><span
                                 class="glyphicon glyphicon-remove"></span></button>
                     </td>
                 </tr>
                 <tr ng-show="inputRow">
-                    <td class="text-center fix-collum">
+                    <td class="text-center">
                         <div ng-class="{'has-error': nameError === true}">
                             <input class="form-control" type="text" ng-model="newAcco.name"/>
                         </div>
                     </td>
-                    <td class="text-center fix-collum">
+                    <td class="text-center">
                         <input class="form-control" type="date" ng-model="newAcco.date"/>
                     </td>
+                    <td></td>
                     <td>
                         <div ng-class="{'has-error': cashError === true}">
                             <input class="form-control" type="number" ng-model="newAcco.cash"/>
                         </div>
                     </td>
-                    <td class="text-center fix-collum">
-                        <button class="btn btn-success" ng-click="addAccountsRow(newAcco.name, newAcco.cash)"><span
+                    <td class="text-center">
+                        <button class="btn btn-success" ng-click="addAccountsRow(newAcco.name, newAcco.date, newAcco.cash)"><span
                                 class="glyphicon glyphicon-plus"></span></button>
                     </td>
                 </tr>
@@ -81,13 +86,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-<!--                <div class="donutChart">
-                </div>-->
-                <div class="donutChart"
-                     donut-graphic
-                     data-sorttype="income"
-                     data-width="960"
-                     data-height="450"></div>
+                <div donut-graphic data-sorttype="income"></div>
             </div>
         </div>
     </div>
