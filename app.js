@@ -137,33 +137,42 @@ if (Meteor.isClient) {
                       .css("font-size", setFontSize() +"px");
 
             scope.type = attrs.sorttype;
-            scope.accountsSort = $meteor.collection(function () {
+/*            scope.accountsSort = $meteor.collection(function () {
                 return Accounts.find({type : scope.type})
-            });
+            });*/
 
 /*            angular.element($window).bind('resize', function() {
                 change(initData());
                 scope.$apply();
             });*/
 
-            scope.$watchCollection('accounts + type', function (newValue, oldValue) {
+            scope.$watchCollection('accounts', function (newValue, oldValue) {
                 if (newValue) {
                     scope.sumAccounts = totalSum();
-                    change(initData());
+                    change(initData(scope.accounts));
                 }
             });
 
             function totalSum() {
                 var sum = 0;
-                for (var i = 0; i < scope.accountsSort.length; i++) {
-                    sum += scope.accountsSort[i].cash;
+                for (var i = 0; i < scope.accounts.length; i++) {
+                    if (scope.accounts[i].cash > 0) {
+                    sum += scope.accounts[i].cash;
+                    }
                 }
                 return sum;
             }
 
-            function initData (){
-                return scope.accountsSort.map(function(d){
-                    return {label: d.name + ' (' + (( d.cash / scope.sumAccounts ) * 100).toFixed(2) +'%)' , value: d.cash}
+            function initData (obj){
+                return obj.map(function(d){
+                    /*neeed fix bug*/
+                    return {
+                        label: d.name /*+ ' (' + (( d.cash / scope.sumAccounts ) * 100).toFixed(2) +'%)'*/ , value: d.cash
+                    }
+                }).filter(function(d){
+                    if (d.value > 0) {
+                        return d;
+                    }
                 });
             }
 
@@ -283,16 +292,6 @@ if (Meteor.isClient) {
                 polyline.enter()
                 .append("polyline");
 
-                /*text.enter()
-                 .append("text")
-                 .attr("dy", ".35em")
-                 .text(function(d) {
-
-                 return d.data.label;
-                 }
-                 });*/
-
-
                 polyline.transition().duration(1000)
                     .attrTween("points", function(d){
                         this._current = this._current || d;
@@ -319,7 +318,7 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
     Meteor.startup(function () {
-        if (Accounts.find().count() === 0) {
+        /*if (Accounts.find().count() === 0) {
             var accounts = [
                 {
                     'name': 'Dubstep-Free Zone',
@@ -339,6 +338,6 @@ if (Meteor.isServer) {
             ];
             for (var i = 0; i < accounts.length; i++)
                 Accounts.insert(accounts[i]);
-        }
+        }*/
     });
 }
