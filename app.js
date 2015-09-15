@@ -33,7 +33,7 @@ if (Meteor.isClient) {
                 $scope.nameError = true;
                 return;
             }
-            if (name == null || name == '') {
+            if (name == null || name === '') {
                 $scope.nameError = true;
                 return;
             }
@@ -47,11 +47,11 @@ if (Meteor.isClient) {
             if (cash > 0) {
                 $scope.newAcco.type = 'income';
             }
-            if (cash == 0) {
+            if (cash === 0) {
                 $scope.newAcco.type = 'zero';
             }
             $scope.inputRow = false;
-            $scope.newAcco.date = date;
+            $scope.newAcco.date = date || new Date();
             $scope.newAcco.nowDate = new Date();
 
             $scope.accounts.push($scope.newAcco);

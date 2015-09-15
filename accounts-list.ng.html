@@ -1,12 +1,12 @@
-<div ng-controller="AccountCtrl" class="container">
-    <div class="col-md-12">
+<div ng-controller="AccountCtrl" class="container-fluid">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
             <table class="table table-condensed table-hover table-bordered table-responsive">
                 <thead>
                 <tr>
                     <th class="text-center tableHover" ng-click="toSortTable('name')"><h4>Name</h4></th>
-                    <th class="text-center tableHover" ng-click="toSortTable('date')"><h4>Complite date</h4></th>
+                    <th class="text-center tableHover" ng-click="toSortTable('date')"><h4>Complete date</h4></th>
                     <th class="text-center tableHover" ng-click="toSortTable('nowDate')"><h4>Write date</h4></th>
                     <th class="text-center tableHover" ng-click="toSortTable('cash')"><h4>Cash</h4></th>
                     <th class="text-center">
@@ -53,17 +53,17 @@
                 </tr>
                 <tr ng-show="inputRow">
                     <td class="text-center">
-                        <div ng-class="{'has-error': nameError === true}">
+                        <div ng-class="{'has-error': nameError}">
                             <input class="form-control" type="text" ng-model="newAcco.name"/>
                         </div>
                     </td>
                     <td class="text-center">
-                        <input class="form-control" type="date" ng-model="newAcco.date"/>
+                        <input class="form-control" type="date" style="padding: 3px;" ng-model="newAcco.date"/>
                     </td>
                     <td></td>
                     <td>
-                        <div ng-class="{'has-error': cashError === true}">
-                            <input class="form-control" type="number" ng-model="newAcco.cash"/>
+                        <div ng-class="{'has-error': cashError}">
+                            <input class="form-control" style="padding: 3px; text-align: right" type="number" ng-model="newAcco.cash"/>
                         </div>
                     </td>
                     <td class="text-center">
@@ -83,9 +83,7 @@
                         class="glyphicon glyphicon-warning-sign"></span></button>-->
             </table>
         </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
                 <div donut-graphic data-sorttype="income"></div>
             </div>
         </div>
