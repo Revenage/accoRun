@@ -46,8 +46,8 @@
                         <time am-time-ago="account.nowDate" tooltip="{{account.nowDate | date:'dd-MM-yyyy HH:mm:ss'}}"></time>
                     </td>
                     <td class="text-right ">{{account.cash | moneyMask: 2 : "," : " " }}</td>
-                    <td class="text-center ">
-                        <button class="btn btn-danger btn-sm" ng-click="remove(account)"><span
+                    <td class="text-center" width="50">
+                        <button class="btn btn-danger" ng-click="remove(account)"><span
                                 class="glyphicon glyphicon-remove"></span></button>
                     </td>
                 </tr>
@@ -66,13 +66,13 @@
                             <input class="form-control" style="padding: 3px; text-align: right" type="number" ng-model="newAcco.cash"/>
                         </div>
                     </td>
-                    <td class="text-center">
+                    <td class="text-center" width="50">
                         <button class="btn btn-success" ng-click="addAccountsRow(newAcco.name, newAcco.date, newAcco.cash)"><span
-                                class="glyphicon glyphicon-plus"></span></button>
+                                class="glyphicon glyphicon-ok"></span></button>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5" ng-click="inputRow = !inputRow">
+                    <td colspan="5" ng-click="inputRow = !inputRow" style="padding: 0">
                         <button class="btn btn-block btn-primary">
                             <span class="glyphicon glyphicon-plus-sign"></span>
                         </button>

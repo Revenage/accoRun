@@ -234,6 +234,7 @@ if (Meteor.isClient) {
                         var interpolate = d3.interpolate(this._current, d);
                         this._current = interpolate(0);
                         return function(t) {
+                            /*((interpolate(t).endAngle - interpolate(t).startAngle)/(Math.PI*2)*100);*/
                             return arc(interpolate(t));
                         };
                     });
