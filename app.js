@@ -105,6 +105,10 @@ if (Meteor.isClient) {
             $locationProvider.html5Mode(true);
 
             $stateProvider
+                .state('intro', {
+                    url: '/',
+                    templateUrl: 'intro.ng.html'
+                })
                 .state('accounts', {
                     url: '/accounts',
                     templateUrl: 'accounts-list.ng.html',
@@ -234,7 +238,6 @@ if (Meteor.isClient) {
                         var interpolate = d3.interpolate(this._current, d);
                         this._current = interpolate(0);
                         return function(t) {
-                            /*((interpolate(t).endAngle - interpolate(t).startAngle)/(Math.PI*2)*100);*/
                             return arc(interpolate(t));
                         };
                     });

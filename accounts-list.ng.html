@@ -1,4 +1,5 @@
 <div ng-controller="AccountCtrl" class="container-fluid">
+    <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
@@ -6,8 +7,8 @@
                 <thead>
                 <tr>
                     <th class="text-center tableHover" ng-click="toSortTable('name')"><h4>Name</h4></th>
-                    <th class="text-center tableHover" ng-click="toSortTable('date')"><h4>Complete date</h4></th>
-                    <th class="text-center tableHover" ng-click="toSortTable('nowDate')"><h4>Write date</h4></th>
+                    <!--<th class="text-center tableHover" ng-click="toSortTable('date')"><h4>Complete date</h4></th>
+                    <th class="text-center tableHover" ng-click="toSortTable('nowDate')"><h4>Write date</h4></th>-->
                     <th class="text-center tableHover" ng-click="toSortTable('cash')"><h4>Cash</h4></th>
                     <th class="text-center">
                         <button class="btn btn-default" ng-click="open()"><span
@@ -39,12 +40,12 @@
                     ng-class="{'success': account.type === 'income', 'danger': account.type === 'cost', 'warning': account.type === 'zero'}"
                     ng-click="trLinkTo('accounts', account._id)">
                     <td class="">{{account.name}}</td>
-                    <td class="text-center ">
+                    <!-- <td class="text-center ">
                         <time am-time-ago="account.date" tooltip="{{account.date | date:'dd-MM-yyyy'}}"></time>
                     </td>
                     <td class="text-center ">
                         <time am-time-ago="account.nowDate" tooltip="{{account.nowDate | date:'dd-MM-yyyy HH:mm:ss'}}"></time>
-                    </td>
+                    </td>-->
                     <td class="text-right ">{{account.cash | moneyMask: 2 : "," : " " }}</td>
                     <td class="text-center" width="50">
                         <button class="btn btn-danger" ng-click="remove(account)"><span
@@ -57,10 +58,10 @@
                             <input class="form-control" type="text" ng-model="newAcco.name"/>
                         </div>
                     </td>
-                    <td class="text-center">
-                        <input class="form-control" type="date" style="padding: 3px;" ng-model="newAcco.date"/>
-                    </td>
-                    <td></td>
+                    <!--   <td class="text-center">
+                          <input class="form-control" type="date" style="padding: 3px;" ng-model="newAcco.date"/>
+                      </td>
+                     <td></td>-->
                     <td>
                         <div ng-class="{'has-error': cashError}">
                             <input class="form-control" style="padding: 3px; text-align: right" type="number" ng-model="newAcco.cash"/>
@@ -87,5 +88,6 @@
                 <div donut-graphic data-sorttype="income"></div>
             </div>
         </div>
+    </div>
     </div>
 </div>
