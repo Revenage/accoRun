@@ -1,7 +1,9 @@
 /**
  * Created by User on 17.09.2015.
  */
+
 Meteor.startup(function () {
+
     /*if (Accounts.find().count() === 0) {
      var accounts = [
      {
